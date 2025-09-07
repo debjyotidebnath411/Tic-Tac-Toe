@@ -1,0 +1,172 @@
+/* --- Import Font --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* --- Variable Definitions for Easy Customization --- */
+:root {
+    --glow-x-color: #00FF00; /* Electric Green for X */
+    --glow-o-color: #FF851B; /* Deep Orange for O */
+
+    --bg-color-1: #6d28d9;
+    --bg-color-2: #be185d;
+    --bg-color-3: #4f46e5;
+    --bg-color-4: #9f1239;
+}
+
+/* --- Animated Gradient Background --- */
+body {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    margin: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Main Glass Container --- */
+.glass-container {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* --- Typography --- */
+h1.text-shadow {
+    background: linear-gradient(90deg, #e0e0e0, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    text-shadow: 
+        0 0 5px rgba(255,255,255,0.4),
+        0 4px 10px rgba(0,0,0,0.6),
+        0 8px 15px rgba(0,0,0,0.3);
+    letter-spacing: 0.05em;
+}
+
+#status {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* --- Game Board Cell Styling --- */
+.cell {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease-out;
+    padding: 0;
+    text-align: center;
+}
+
+.cell:hover {
+    transform: translateY(-5px) scale(1.03);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.cell.x {
+    color: var(--glow-x-color);
+    text-shadow: 
+        0 0 5px var(--glow-x-color), 
+        0 0 15px var(--glow-x-color), 
+        0 0 30px var(--glow-x-color);
+}
+
+.cell.o {
+    color: var(--glow-o-color);
+    text-shadow: 
+        0 0 5px var(--glow-o-color), 
+        0 0 15px var(--glow-o-color), 
+        0 0 30px var(--glow-o-color);
+}
+
+/* --- FIXED: Winning Cell Animation --- */
+/* This animation is now specific to Player X (Green) */
+.winning-cell.x {
+    background-color: rgba(0, 255, 0, 0.5); /* Green background */
+    animation: win-pulse-x 0.8s infinite;
+}
+
+/* This new animation is for Player O (Orange) */
+.winning-cell.o {
+    background-color: rgba(255, 133, 27, 0.5); /* Orange background */
+    animation: win-pulse-o 0.8s infinite;
+}
+
+/* Keyframes for Player X's green pulse */
+@keyframes win-pulse-x {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 10px rgba(0, 255, 0, 0);
+    }
+}
+
+/* New keyframes for Player O's orange pulse */
+@keyframes win-pulse-o {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 133, 27, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 10px rgba(255, 133, 27, 0);
+    }
+}
+
+/* --- Restart Button Styling --- */
+.restart-button {
+    background: linear-gradient(45deg, var(--glow-x-color), var(--glow-o-color)); 
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.restart-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.restart-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 420px) {
+    .cell {
+        font-size: 3rem;
+        border-radius: 12px;
+    }
+    h1.text-shadow {
+        font-size: 2.5rem;
+    }
+}
